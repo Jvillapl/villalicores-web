@@ -109,7 +109,11 @@
                 <h2 style="margin:0; color:var(--secondary);">Panel Admin</h2>
                 <span style="color:var(--text-gray); font-size:0.9rem;">Gestión de Villalicores</span>
             </div>
-            <button onclick="logoutAdmin()" style="margin-left:auto; border:none; background:none; color:var(--danger); cursor:pointer;">Salir</button>
+            <div style="margin-left:auto; display:flex; gap:10px;">
+                <button onclick="exportData()" style="border:1px solid #2ecc71; background:white; color:#2ecc71; padding:5px 10px; border-radius:5px; cursor:pointer;">💾 Guardar Copia</button>
+                <button onclick="importData()" style="border:1px solid #3498db; background:white; color:#3498db; padding:5px 10px; border-radius:5px; cursor:pointer;">📂 Cargar Copia</button>
+                <button onclick="logoutAdmin()" style="border:none; background:none; color:var(--danger); cursor:pointer;">Salir</button>
+            </div>
         </div>
 
         <div class="stats-grid">
