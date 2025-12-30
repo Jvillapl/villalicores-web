@@ -550,6 +550,47 @@
         document.getElementById('stat-sales').innerText = '₡' + total.toLocaleString();
     }
 
+    // --- 7. BACKUP Y RESTAURACIÓN ---
+    function exportData() {
+        const data = { products, orders };
+        const blob = new Blob([JSON.stringify(data)], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "villalicores_backup.json";
+        a.click();
+    }
+
+    function importData() {
+        if(!confirm("⚠️ ATENCIÓN: Esto borrará los datos actuales y pondrá los de la copia de seguridad. ¿Continuar?")) return;
+        
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+        input.onchange = e => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = event => {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    if(data.products && data.orders) {
+                        products = data.products;
+                        orders = data.orders;
+                        saveData();
+                        alert("✅ ¡Datos restaurados correctamente!");
+                        location.reload();
+                    } else {
+                        alert("❌ El archivo no es válido.");
+                    }
+                } catch(err) {
+                    alert("❌ Error al leer el archivo.");
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+
     renderShop();
 </script>
 
